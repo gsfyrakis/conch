@@ -54,7 +54,7 @@ public class RelevanceEngine {
     private static Responder responder;
 
     // default response is non contract compliant otherwise contract compliant
-    private static CCCResponse cccResponse = new CCCResponse(false);
+    private static CCCResponse cccResponse = new CCCResponse("",false);
 
     /**
      * Handle compilation errors.
@@ -183,7 +183,7 @@ public static void bootstrapRelevanceEngine(){
         // workingMem.setGlobal("anyOperation", anyOperation);
         // Complete
 
-        responder = new Responder(false);
+        responder = new Responder("",false);
         workingMem.setGlobal("responder", responder);
 
         log.info("Initialization complete");
@@ -220,8 +220,7 @@ public static void bootstrapRelevanceEngine(){
      */
     public static void processEventQueue() {
 
-        setCCCResponse(new CCCResponse(false));
-        responder.setContractCompliant(false);
+
         // Check if EventLogger is in place, if not refuse to process event
         // queue
         if (eventLogger == null)
@@ -229,6 +228,11 @@ public static void bootstrapRelevanceEngine(){
         // It is ok, continue with processing
         Event ev = eventQueue.poll();
         // Check if the queue is empty
+
+        setCCCResponse(new CCCResponse(ev.getSequenceId(), false));
+        responder.setContractCompliant(false);
+        responder.setSequenceId(ev.getSequenceId());
+
         if (ev == null)
             return;
         // It is not empty, process event.
@@ -237,7 +241,7 @@ public static void bootstrapRelevanceEngine(){
             workingMem.insert(ev);
         } catch (Exception e) {
             ErrorMessageManager.errorMsg("Insertion of new event in working memory failed", e);
-            setCCCResponse(new CCCResponse(false));
+            setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
         }
         log.info("+ Processing event: " + ev.toString());
         // Fire all rules!
@@ -248,14 +252,14 @@ public static void bootstrapRelevanceEngine(){
 
             if (responder != null) {
                 if (responder.getContractCompliant() == null) {
-                    setCCCResponse(new CCCResponse(false));
+                    setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
                 } else {
-                    setCCCResponse(new CCCResponse(responder.getContractCompliant()));
+                    setCCCResponse(new CCCResponse(ev.getSequenceId(), responder.getContractCompliant()));
                 }
             }
         } catch (Exception e) {
             ErrorMessageManager.errorMsg("Exception when firing rules", e);
-            setCCCResponse(new CCCResponse(false));
+            setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
         }
 
     }

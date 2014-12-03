@@ -108,8 +108,7 @@ public class EventsMDB implements MessageListener {
 				cccResponse = processCCCEvent(event);
 
 				log.info("cccResponse: " + cccResponse);
-                CCCLogger.logTrace("cccResponse: " + cccResponse);
-				CCCLogger.logTrace("---------------------- END -----------------------");
+
 				sendResponse(cccResponse);
 
 			} else {
@@ -190,6 +189,9 @@ public class EventsMDB implements MessageListener {
 
 		ObjectMessage message = sess.createObjectMessage();
 		message.setObject(cccResponse);
+		CCCLogger.logTrace("cccResponse: " + cccResponse);
+        CCCLogger.logTrace("---------------------- END -----------------------");
+
 		message.setStringProperty(org.hornetq.rest.HttpHeaderProperty.CONTENT_TYPE, "application/xml");
 		producer.send(message);
 

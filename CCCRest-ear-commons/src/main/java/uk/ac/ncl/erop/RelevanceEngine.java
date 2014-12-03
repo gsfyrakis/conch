@@ -36,6 +36,7 @@ public class RelevanceEngine {
 
     // default response is non contract compliant otherwise contract compliant
     private static CCCResponse cccResponse = new CCCResponse("",false);
+    private static CCCLogger ccclog;
 //    private static CCCLogger ccclog;
 
     /**
@@ -167,9 +168,9 @@ public static void bootstrapRelevanceEngine(){
 
         responder = new Responder("",false);
         workingMem.setGlobal("responder", responder);
-//        ccclog = new CCCLogger();
+        ccclog = new CCCLogger();
 
-        workingMem.setGlobal("cccloger", CCCLogger.class);
+        workingMem.setGlobal("cccloger", ccclog);
 
         log.info("Initialization complete");
     }

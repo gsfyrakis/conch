@@ -8,30 +8,11 @@ import java.util.logging.Logger;
 import org.drools.compiler.compiler.DroolsParserException;
 
 
-import org.drools.compiler.compiler.io.Resource;
-import org.kie.api.KieBase;
-import org.kie.api.KieBaseConfiguration;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
-import org.kie.api.builder.model.KieBaseModel;
-import org.kie.api.builder.model.KieModuleModel;
-import org.kie.api.builder.model.KieSessionModel;
-import org.kie.api.cdi.KSession;
-import org.kie.api.conf.EqualityBehaviorOption;
-import org.kie.api.conf.EventProcessingOption;
-import org.kie.api.conf.MBeansOption;
-import org.kie.api.event.rule.DebugAgendaEventListener;
-import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
-import org.kie.api.io.ResourceType;
-import org.kie.api.logger.KieRuntimeLogger;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.KieSessionConfiguration;
-import org.kie.api.runtime.conf.ClockTypeOption;
-import org.kie.api.runtime.conf.TimedRuleExectionOption;
-import org.kie.internal.io.ResourceFactory;
-import uk.ac.ncl.util.CustomAgendaEventListener;
-import uk.ac.ncl.util.CustomWorkingMemoryEventListener;
+import uk.ac.ncl.logging.CCCLogger;
 import uk.ac.ncl.xml.CCCResponse;
 
 /**
@@ -54,7 +35,8 @@ public class RelevanceEngine {
     private static Responder responder;
 
     // default response is non contract compliant otherwise contract compliant
-    private static CCCResponse cccResponse = new CCCResponse(false);
+    private static CCCResponse cccResponse = new CCCResponse("",false);
+    private static CCCLogger ccclog = new CCCLogger();
 
     /**
      * Handle compilation errors.
@@ -183,8 +165,11 @@ public static void bootstrapRelevanceEngine(){
         // workingMem.setGlobal("anyOperation", anyOperation);
         // Complete
 
-        responder = new Responder(false);
+        responder = new Responder("",false);
         workingMem.setGlobal("responder", responder);
+//        ccclog = new CCCLogger();
+
+        workingMem.setGlobal("cccloger",ccclog);
 
         log.info("Initialization complete");
     }
@@ -220,8 +205,7 @@ public static void bootstrapRelevanceEngine(){
      */
     public static void processEventQueue() {
 
-        setCCCResponse(new CCCResponse(false));
-        responder.setContractCompliant(false);
+
         // Check if EventLogger is in place, if not refuse to process event
         // queue
         if (eventLogger == null)
@@ -229,6 +213,11 @@ public static void bootstrapRelevanceEngine(){
         // It is ok, continue with processing
         Event ev = eventQueue.poll();
         // Check if the queue is empty
+
+        setCCCResponse(new CCCResponse(ev.getSequenceId(), false));
+        responder.setContractCompliant(false);
+        responder.setSequenceId(ev.getSequenceId());
+
         if (ev == null)
             return;
         // It is not empty, process event.
@@ -237,7 +226,7 @@ public static void bootstrapRelevanceEngine(){
             workingMem.insert(ev);
         } catch (Exception e) {
             ErrorMessageManager.errorMsg("Insertion of new event in working memory failed", e);
-            setCCCResponse(new CCCResponse(false));
+            setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
         }
         log.info("+ Processing event: " + ev.toString());
         // Fire all rules!
@@ -245,19 +234,23 @@ public static void bootstrapRelevanceEngine(){
             workingMem.fireAllRules();
 
             // update response of CCC
+            updateResponseOfCCC(ev);
 
-            if (responder != null) {
-                if (responder.getContractCompliant() == null) {
-                    setCCCResponse(new CCCResponse(false));
-                } else {
-                    setCCCResponse(new CCCResponse(responder.getContractCompliant()));
-                }
-            }
         } catch (Exception e) {
             ErrorMessageManager.errorMsg("Exception when firing rules", e);
-            setCCCResponse(new CCCResponse(false));
+            setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
         }
 
+    }
+
+    private static void updateResponseOfCCC(Event ev) {
+        if (responder != null) {
+            if (responder.getContractCompliant() == null) {
+                setCCCResponse(new CCCResponse(ev.getSequenceId(),false));
+            } else {
+                setCCCResponse(new CCCResponse(ev.getSequenceId(), responder.getContractCompliant()));
+            }
+        }
     }
 
     /**

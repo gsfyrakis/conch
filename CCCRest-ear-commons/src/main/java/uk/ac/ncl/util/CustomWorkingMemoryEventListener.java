@@ -7,6 +7,7 @@ import org.kie.api.event.rule.ObjectDeletedEvent;
 import org.kie.api.event.rule.ObjectInsertedEvent;
 import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
+import uk.ac.ncl.logging.CCCLogger;
 
 public class CustomWorkingMemoryEventListener implements RuleRuntimeEventListener {
 	
@@ -22,7 +23,7 @@ public class CustomWorkingMemoryEventListener implements RuleRuntimeEventListene
 	@Override
 	public void objectInserted(ObjectInsertedEvent event) {
 		logger.info("Object Inserted: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
-
+		CCCLogger.logTrace("Object Inserted: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
 	}
 
 	/*
@@ -35,6 +36,7 @@ public class CustomWorkingMemoryEventListener implements RuleRuntimeEventListene
 	@Override
 	public void objectDeleted(ObjectDeletedEvent event) {
 		logger.info("Object Retracted: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
+		CCCLogger.logTrace("Object Retracted: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
 
 	}
 
@@ -48,6 +50,7 @@ public class CustomWorkingMemoryEventListener implements RuleRuntimeEventListene
 	@Override
 	public void objectUpdated(ObjectUpdatedEvent event) {
 		logger.info("Object Updated: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
+		CCCLogger.logTrace("Object Updated: " + event.getFactHandle() + " Knowledge Runtime: " + event.getKieRuntime());
 
 	}
 }

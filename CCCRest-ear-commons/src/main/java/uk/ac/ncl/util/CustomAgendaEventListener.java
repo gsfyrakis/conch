@@ -10,6 +10,7 @@ import org.drools.core.event.ActivationCreatedEvent;
 import org.drools.core.event.AfterActivationFiredEvent;
 import org.drools.core.event.BeforeActivationFiredEvent;
 import org.kie.api.event.rule.*;
+import uk.ac.ncl.logging.CCCLogger;
 import uk.ac.ncl.util.CustomWorkingMemoryEventListener;
 
 public class CustomAgendaEventListener implements AgendaEventListener {
@@ -17,27 +18,33 @@ public class CustomAgendaEventListener implements AgendaEventListener {
 
 	public void activationCancelled(ActivationCancelledEvent event) {
 		logger.info("Activation Cancelled: " + event.getActivation());
+		CCCLogger.logTrace("Activation Cancelled: " + event.getActivation());
 	}
 
 	public void activationCreated(ActivationCreatedEvent event) {
 		logger.info("Activation Created: " + event.getActivation());
+		CCCLogger.logTrace("Activation Created: " + event.getActivation());
 	}
 
 	public void beforeActivationFired(BeforeActivationFiredEvent event) {
 		logger.info("Before Activation Fired: " + event.getActivation());
+		CCCLogger.logTrace("Before Activation Fired: " + event.getActivation());
 	}
 
 	public void afterActivationFired(AfterActivationFiredEvent event) {
 		logger.info("After Activation Fired: " + event.getActivation());
+		CCCLogger.logTrace("After Activation Fired: " + event.getActivation());
 	}
 
 	public void agendaGroupPopped(AgendaGroupPoppedEvent event) {
 
 		logger.info("Agenda Group Popped: " + event.getAgendaGroup());
+		CCCLogger.logTrace("Agenda Group Popped: " + event.getAgendaGroup());
 	}
 
 	public void agendaGroupPushed(AgendaGroupPushedEvent event) {
 		logger.info("Agenda Group Pushed: " + event.getAgendaGroup());
+        CCCLogger.logTrace("Agenda Group Pushed: " + event.getAgendaGroup());
 	}
 
 	@Override
@@ -62,10 +69,12 @@ public class CustomAgendaEventListener implements AgendaEventListener {
 
 	public void matchCreated(MatchCreatedEvent event) {
 		logger.info("matchCreated: " + event.getMatch());
+		CCCLogger.logTrace("matchCreated: " + event.getMatch());
 	}
 
 	public void matchCancelled(MatchCancelledEvent event) {
 		logger.info("matchCancelled: " + event.getMatch());
+		CCCLogger.logTrace("matchCancelled: " + event.getMatch());
 	}
 
 	@Override

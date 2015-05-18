@@ -12,6 +12,7 @@ import org.kie.api.KieServices;
 import org.kie.api.builder.*;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.StatelessKieSession;
 import uk.ac.ncl.logging.CCCLogger;
 import uk.ac.ncl.xml.CCCResponse;
 
@@ -71,8 +72,8 @@ public class RelevanceEngine {
         KieServices ks = KieServices.Factory.get();
 
         KieContainer ruleBase = ks.getKieClasspathContainer();
+//        workingMem = ruleBase.newStatelessKieSession("CCCKS");
         workingMem = ruleBase.newKieSession("CCCKS");
-
         eventLogger = el;
 
     }

@@ -26,7 +26,7 @@
     <properties>
 
         <drools.version>5.5.0.Final</drools.version>
-        <drools6.version>6.1.0.Final</drools6.version>
+        <drools6.version>6.2.0.Final</drools6.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jboss.bom.version>1.0.0.M7</jboss.bom.version>
         <version.jboss.maven.plugin>7.6.Final</version.jboss.maven.plugin>

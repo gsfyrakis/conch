@@ -40,41 +40,26 @@
         <dependency>
             <groupId>org.hornetq.rest</groupId>
             <artifactId>hornetq-rest</artifactId>
-            <version>2.3.0.Final</version>
+            <version>2.4.7.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>2.3.8.Final-redhat-3</version>
+            <version>3.0.11.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxb-provider</artifactId>
-            <version>2.3.8.Final-redhat-3</version>
+            <version>3.0.11.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-multipart-provider</artifactId>
-            <version>2.3.8.Final-redhat-3</version>
+            <version>3.0.11.Final</version>
         </dependency>
 
 
-        <!-- <dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId>
-            <version>2.1</version> </dependency> -->
-        <!-- <dependency> <groupId>org.hornetq</groupId> <artifactId>hornetq-core</artifactId>
-            <version>2.2.13.Final</version> </dependency> <dependency> <groupId>org.hornetq</groupId>
-            <artifactId>hornetq-jms</artifactId> <version>2.2.13.Final</version> </dependency> -->
-        <!-- <dependency> <groupId>org.jboss.javaee</groupId> <artifactId>jboss-jms-api</artifactId>
-            <version>1.1.0.GA</version> </dependency> -->
-        <!-- <dependency> <groupId>org.jboss.naming</groupId> <artifactId>jnpserver</artifactId>
-            <version>5.0.3.GA</version> </dependency> -->
-        <!-- <dependency> <groupId>org.hornetq.rest</groupId> <artifactId>hornetq-rest</artifactId>
-            <version>2.2.2.Final</version> </dependency> -->
-
-        <!-- <dependency> <groupId>org.jboss.netty</groupId> <artifactId>netty</artifactId>
-            <version>3.2.7.Final</version> </dependency> <dependency> <groupId>org.jboss.ejb3</groupId>
-            <artifactId>jboss-ejb3-ext-api</artifactId> <version>2.0.0</version> </dependency> -->
     </dependencies>
 
     <build>
@@ -90,10 +75,7 @@
                     </additionalBuildcommands>
                 </configuration>
             </plugin>
-            <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version> <configuration> <archive> <manifest> <addClasspath>true</addClasspath>
-                <mainClass>uk.ac.ncl.client.RESTClient</mainClass> <packageName>uk.ac.ncl.client</packageName>
-                </manifest> </archive> </configuration> </plugin> -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>

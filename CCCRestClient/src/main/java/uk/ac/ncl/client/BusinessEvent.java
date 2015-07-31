@@ -4,7 +4,7 @@ package uk.ac.ncl.client;
  */
 
 import java.io.Serializable;
-import javax.util.Date;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;

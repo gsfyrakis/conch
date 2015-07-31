@@ -34,10 +34,10 @@ import org.jboss.resteasy.spi.Link;
  */
 public class RESTClient {
 
-	private static final String BUSINESS_EVENT_QUEUE_URL = "http://ccc-110495017.rhcloud.com/CCCRest-ear-web/queues/jms.queue.events";
-//	private static final String BUSINESS_EVENT_QUEUE_URL = "http://localhost:8080/CCCRest-ear-web/queues/jms.queue.events";
-	private static final String REPLY_QUEUE_URL = "http://ccc-110495017.rhcloud.com/CCCRest-ear-web/queues/jms.queue.replyQueue";
-//	private static final String REPLY_QUEUE_URL = "http://localhost:8080/CCCRest-ear-web/queues/jms.queue.replyQueue";
+//	private static final String BUSINESS_EVENT_QUEUE_URL = "http://ccc-110495017.rhcloud.com/CCCRest-ear-web/queues/jms.queue.events";
+	private static final String BUSINESS_EVENT_QUEUE_URL = "http://localhost:8080/CCCRest-ear-web/queues/jms.queue.events";
+//	private static final String REPLY_QUEUE_URL = "http://ccc-110495017.rhcloud.com/CCCRest-ear-web/queues/jms.queue.replyQueue";
+	private static final String REPLY_QUEUE_URL = "http://localhost:8080/CCCRest-ear-web/queues/jms.queue.replyQueue";
 
 	private final static Logger log = Logger.getLogger(RESTClient.class.toString());
 	private static ClientRequest request;

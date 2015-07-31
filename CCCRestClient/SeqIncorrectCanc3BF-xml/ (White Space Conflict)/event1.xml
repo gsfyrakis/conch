@@ -1,7 +1,0 @@
-<event>
-  <sequenceId>  </sequenceId>
-  <originator>buyer</originator>
-  <responder>store</responder>
-  <type>BUYREQ</type>
-  <status>success</status>
-</event>

@@ -1,8 +1,0 @@
-<event>
-  <originator>store</originator>
-  <responder>buyer</responder>
-  <type>BUYCONF</type>
-  <customerId>1</customerId>
-  <contractId>1</contractId>
-  <status>bizfail</status>
-</event>
